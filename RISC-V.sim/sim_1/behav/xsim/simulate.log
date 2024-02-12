@@ -1,0 +1,3 @@
+Time resolution is 1 ps
+        14 tests completed with          0 errors
+$stop called at time : 1360 ns : File "/home/prushton/vivado/projects/RISC-V/RISC-V.srcs/sim_1/new/alutest.v" Line 77
