@@ -3,9 +3,9 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date: 02/08/2024 01:04:10 PM
-// Design Name: Single Byte Memory (clock circuit)
-// Module Name: smem
+// Create Date: 02/12/2024 04:29:56 PM
+// Design Name: 
+// Module Name: main
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -20,13 +20,19 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module smem(
-    input clk,
-    input [63:0] a,
-    output reg [63:0] y
+module main(
+
     );
-    
-    always @(posedge clk)
-        y <= a;
-    
+
+
+
+	
+
+
+
+
+
+
+
+
 endmodule
