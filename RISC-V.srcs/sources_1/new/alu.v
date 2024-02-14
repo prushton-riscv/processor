@@ -54,8 +54,8 @@ module alu(
 	assign _mul = aa * bb;
 	assign _mul_carry = aa*bb;
 	
-	assign _lshift = bb << aa;
-	assign _rshift = bb >> aa;
+	assign _lshift = aa << bb;
+	assign _rshift = aa >> bb;
 
 	always @(*) begin
 		case (f[4:1]) 
