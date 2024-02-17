@@ -22,7 +22,6 @@
 
 module control(
 	input [11:0] opcode,
-	input [9:0] funct,
 
 	output [7:0] ALUOp,
 

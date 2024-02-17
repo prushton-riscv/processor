@@ -7,9 +7,9 @@ module dmem(
 	input we0,
 	input we1,
 
-	input [31:0] a0,
-	input [31:0] a1,
-	input [31:0] a2,
+	input [63:0] a0,
+	input [63:0] a1,
+	input [63:0] a2,
 
 	output [63:0] rd0,
 	output [63:0] rd1,
@@ -17,14 +17,14 @@ module dmem(
     );
 
 
-	reg [31:0] instructions [63:0];   
+	reg [63:0] data [63:0];   
 
 	always @(posedge clk) begin
 		if(we0) begin
-			instructions[a0] <= wd0;		
+			data[a0] <= wd0;		
 		end
 		if(we1) begin
-			instructions[a1] <= wd1;
+			data[a1] <= wd1;
 		end
 	end
 
