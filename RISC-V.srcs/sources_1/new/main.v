@@ -23,7 +23,7 @@
 module main(
 	input clk
      );
-	wire [31:0] PC;
+	wire [63:0] PC, PCNext;
 	wire [63:0] Instruction;
 
 	wire PCPlusOne = PC + 1;
@@ -43,13 +43,48 @@ module main(
 	wire [63:0] WriteDataSource;
 	wire [63:0] RegRead1, RegRead2;
 	registerfile registerfile1(RegWriteControl, Instruction[31:22], Instruction[41:32], Instruction[21:12], WriteDataSource, RegRead1, RegRead2);
-
+	
+	//Immediate
+	reg [63:0] Immediate;
+	
+	always @(*) begin 
+		if (IMMSrcControl) begin
+			Immediate <=  { {33{Instruction[63]}}, Instruction[62:32] };
+		end else begin
+			Immediate <=  { {43{Instruction[63]}}, Instruction[62:42] };
+		end
+	end
 
 	//ALU Sources
 	wire [63:0] ALUSrcA, ALUSrcB;
 	mux2 ALUSrcAMux(RegRead1, PC, ALUSrcAControl, ALUSrcA);
-	mux2 ALUSrcAMux(RegRead2, , ALUSrcBControl, ALUSrcB);
+	mux2 ALUSrcBMux(RegRead2, Immediate, ALUSrcBControl, ALUSrcB);
+
+	//ALU
+	wire [63:0] ALUOut;
+	wire zero;
+	alu ALU1(ALUSrcA, ALUSrcB, ALUOp[6:0], ALUOut, zero);
+	
+	
+	//Data memory
+	wire [63:0] empty, empty2, empty3;
+	wire [63:0] MemRead;
+
+	dmem dmem1(clk, RegRead2, empty, MemWriteControl, ALUOut, empty, empty, MemRead, empty2, empty3);
+
+	//Writeback
+	mux2 wdsourcemux(ALUOut, MemRead, WDSrcControl, WriteDataSource);
 
 
+
+
+	//PC Next //at the end
+	wire notzero = ~zero;
+	wire PCAndZero = PCSrcControl & notzero;
+
+
+	mux pcNextMux(PCPlusOne, Immediate, PCAndZero, PCNext);
+
+	smem(clk, PCNext, PC);
 
 endmodule

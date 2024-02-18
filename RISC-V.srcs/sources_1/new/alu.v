@@ -79,6 +79,7 @@ module alu(
 	end
 
 	assign y = f[0] ? ~_y : _y;
+	assign zero = ( y == 63'b0 );
 endmodule
 
 module and_64_bit(
