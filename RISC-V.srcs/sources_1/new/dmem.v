@@ -31,7 +31,7 @@ module dmem(
 
 //array of size 32 containing 64 bit integers
 	
-	assign rd0 = instructions[a0];
-	assign rd1 = instructions[a1];
-	assign rd2 = instructions[a2];
+	assign rd0 = data[a0];
+	assign rd1 = data[a1];
+	assign rd2 = data[a2];
 endmodule

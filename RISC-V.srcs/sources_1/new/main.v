@@ -23,15 +23,14 @@
 module main(
 	input clk
      );
-	wire [63:0] PC, PCNext;
+	wire [63:0] PC = 1;
+	wire [63:0] PCNext;
 	wire [63:0] Instruction;
 
 	wire PCPlusOne = PC + 1;
 	
 	//Instruction Mem
 	imem imem1(PC, Instruction);
-	//wire ShortImmediate
-
 
 	//Control Unit
 	wire [7:0] ALUOp;
@@ -75,16 +74,12 @@ module main(
 	//Writeback
 	mux2 wdsourcemux(ALUOut, MemRead, WDSrcControl, WriteDataSource);
 
-
-
-
 	//PC Next //at the end
 	wire notzero = ~zero;
 	wire PCAndZero = PCSrcControl & notzero;
 
-
 	mux pcNextMux(PCPlusOne, Immediate, PCAndZero, PCNext);
 
-	smem(clk, PCNext, PC);
+	smem smem1(clk, PCNext, PC);
 
 endmodule

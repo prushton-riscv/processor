@@ -1,10 +1,10 @@
 module imem(
-	input [31:0] a,
+	input [63:0] a,
 	output [63:0] inst
     );
 
 
-	reg [31:0] instructions [63:0];   
+	reg [63:0] instructions [63:0];   
 //array of size 32 containing 64 bit integers
 
 	always @(*) begin 
@@ -18,7 +18,7 @@ module imem(
 	end
 
 
-	assign inst = instructions[a[31:2]];
+	assign inst = instructions[a];
     
 endmodule
 
