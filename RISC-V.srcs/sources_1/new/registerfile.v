@@ -35,7 +35,7 @@ module registerfile(
 
 	reg [63:0] data [1023:0];
 
-	integer i;
+	integer i; //initialize it to 0 so there arent a bunch of X everywhere (scary twitter)
 	initial begin
 		for (i = 0; i < 1024; i = i + 1) begin
 			data[i] <= 64'b0;
@@ -43,7 +43,7 @@ module registerfile(
 	end
 
 	always @(*)
-		if (WE3)
+		if (WE3 && a3) //&& a3 prevents writing if a3 is 0, so register 0 cannot be written to.
 			data[a3] <= wd3;
 	
 	assign rd1 = data[a1];
