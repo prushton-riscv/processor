@@ -47,7 +47,7 @@ module alu(
 	assign _carry = true_sum[64];
 	assign _slt = _sum[63] >> 63;
 
-	and_64_bit and_64_bit1(~_xor, _seq);
+	and_64_bit and_64_bit1(~_xor, _seq[0]);
 
 	assign _sgt = ~(_seq & _slt) >> 63;
 

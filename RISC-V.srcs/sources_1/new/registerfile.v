@@ -33,7 +33,14 @@ module registerfile(
 	output [63:0] rd2
     );
 
-	reg [9:0] data [63:0];
+	reg [63:0] data [63:0];
+
+	integer i;
+	initial begin
+		for (i = 0; i < 64; i = i + 1) begin
+			data[i] <= 64'b0;
+		end
+	end
 
 	always @(*)
 		if (WE3)

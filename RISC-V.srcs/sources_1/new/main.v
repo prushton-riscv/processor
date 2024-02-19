@@ -23,11 +23,11 @@
 module main(
 	input clk
      );
-	wire [63:0] PC = 1;
+	wire [63:0] PC = 0;
 	wire [63:0] PCNext;
 	wire [63:0] Instruction;
 
-	wire PCPlusOne = PC + 1;
+	wire [63:0] PCPlusOne = PC + 1;
 	
 	//Instruction Mem
 	imem imem1(PC, Instruction);
@@ -66,10 +66,14 @@ module main(
 	
 	
 	//Data memory
-	wire [63:0] empty, empty2, empty3;
+	wire [63:0] empty, empty3, empty4, empty5, empty6;
+	wire empty2;
 	wire [63:0] MemRead;
-
-	dmem dmem1(clk, RegRead2, empty, MemWriteControl, ALUOut, empty, empty, MemRead, empty2, empty3);
+	
+	dmem dmem1(clk,
+		ALUOut, MemWriteControl, RegRead2, MemRead, 
+		empty, empty2, empty3, empty4, 
+		empty5, empty6);
 
 	//Writeback
 	mux2 wdsourcemux(ALUOut, MemRead, WDSrcControl, WriteDataSource);
