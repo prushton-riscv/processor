@@ -16,7 +16,7 @@ module dmem(
     );
 
 
-	reg [63:0] data [63:0];   
+	reg [1024:0] data [63:0];   
 
 	always @(posedge clk) begin
 		if(we1) begin

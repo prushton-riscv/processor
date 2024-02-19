@@ -52,13 +52,15 @@ module mux2(
     input  [63:0] A,
     input  [63:0] B,
     input  ctrl,
-    output reg [63:0] Y
+    output [63:0] Y
     );
     
-    always @(*) begin
+    /*always @(*) begin
         case (ctrl)
             3'b110: Y <= A;
             3'b111: Y <= B;
         endcase
-    end
+    end*/
+
+   assign Y = ctrl ? B : A;
 endmodule

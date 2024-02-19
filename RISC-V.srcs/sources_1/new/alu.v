@@ -29,7 +29,7 @@ module alu(
     
 	wire [63:0] aa, bb;
 	wire [63:0] _and, _or, _xor, _sum, _slt, _sgt, _seq, _mul, _lshift, _rshift;
-	wire [64:0] _carry;
+	wire [64:0] _carry, true_sum;
 	wire [127:0] _mul_carry;
 
 	reg [63:0] _y;

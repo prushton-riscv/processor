@@ -26,7 +26,8 @@ module smem(
     output reg [63:0] y
     );
     
-    always @(posedge clk)
+    always @(posedge clk) begin 
         y <= a;
+    end
     
 endmodule

@@ -21,14 +21,25 @@
 
 
 module main(
-	input clk
+	input clk,
+	input reset
      );
-	wire [63:0] PC = 0;
+
+
+	reg [63:0] PC;
 	wire [63:0] PCNext;
 	wire [63:0] Instruction;
-
 	wire [63:0] PCPlusOne = PC + 1;
 	
+
+	always @(posedge clk) begin
+		PC = PCNext; 
+	end
+
+	always @(posedge reset) begin
+		PC = 0;
+	end
+
 	//Instruction Mem
 	imem imem1(PC, Instruction);
 
@@ -41,18 +52,32 @@ module main(
 	//Register File
 	wire [63:0] WriteDataSource;
 	wire [63:0] RegRead1, RegRead2;
-	registerfile registerfile1(RegWriteControl, Instruction[31:22], Instruction[41:32], Instruction[21:12], WriteDataSource, RegRead1, RegRead2);
+	wire [9:0] A1, A2, A3;
+	assign A1 = Instruction[31:22];
+	assign A2 = Instruction[41:32];
+	assign A3 = Instruction[21:12];
+
+	registerfile registerfile1(RegWriteControl, A1, A2, A3, WriteDataSource, RegRead1, RegRead2);
 	
 	//Immediate
-	reg [63:0] Immediate;
+	wire [63:0] Immediate;
+
+	wire [21:0] ImmediateSmall = Instruction[63:42];
+	wire [31:0] ImmediateBig = Instruction[63:32];
+
+	wire [63:0] ExtendedImmediateSmall = ImmediateSmall[21] ? 64'b1 & ImmediateSmall : 64'b0 | ImmediateSmall;
+	wire [63:0] ExtendedImmediateBig = ImmediateBig[31] ? 64'b1 & ImmediateBig : 64'b0 | ImmediateBig;
 	
-	always @(*) begin 
+	assign Immediate = IMMSrcControl ? ImmediateSmall : ImmediateBig;
+
+	
+	/*always begin 
 		if (IMMSrcControl) begin
 			Immediate <=  { {33{Instruction[63]}}, Instruction[62:32] };
 		end else begin
 			Immediate <=  { {43{Instruction[63]}}, Instruction[62:42] };
 		end
-	end
+	end*/
 
 	//ALU Sources
 	wire [63:0] ALUSrcA, ALUSrcB;
@@ -62,7 +87,8 @@ module main(
 	//ALU
 	wire [63:0] ALUOut;
 	wire zero;
-	alu ALU1(ALUSrcA, ALUSrcB, ALUOp[6:0], ALUOut, zero);
+	wire [6:0] SizedALUOp = ALUOp[6:0];
+	alu alu1(ALUSrcA, ALUSrcB, SizedALUOp, ALUOut, zero);
 	
 	
 	//Data memory
@@ -82,8 +108,8 @@ module main(
 	wire notzero = ~zero;
 	wire PCAndZero = PCSrcControl & notzero;
 
-	mux pcNextMux(PCPlusOne, Immediate, PCAndZero, PCNext);
+	mux2 pcNextMux(PCPlusOne, Immediate, PCAndZero, PCNext);
 
-	smem smem1(clk, PCNext, PC);
+	//smem smem1(clk, PCNext, PC);
 
 endmodule

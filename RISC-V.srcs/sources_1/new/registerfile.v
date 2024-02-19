@@ -33,11 +33,11 @@ module registerfile(
 	output [63:0] rd2
     );
 
-	reg [63:0] data [63:0];
+	reg [63:0] data [1023:0];
 
 	integer i;
 	initial begin
-		for (i = 0; i < 64; i = i + 1) begin
+		for (i = 0; i < 1024; i = i + 1) begin
 			data[i] <= 64'b0;
 		end
 	end
