@@ -58,7 +58,7 @@ module main(
 	assign A2 = Instruction[41:32];
 	assign A3 = Instruction[21:12];
 
-	registerfile registerfile1(RegWriteControl, A1, A2, A3, WriteDataSource, RegRead1, RegRead2);
+	registerfile registerfile1(clk, RegWriteControl, A1, A2, A3, WriteDataSource, RegRead1, RegRead2);
 	
 	//Immediate
 	wire [63:0] Immediate;

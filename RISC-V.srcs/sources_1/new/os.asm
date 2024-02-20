@@ -1,6 +1,12 @@
-	addi $t0 $c0 4
-	add $t1 $t0 $t0
-	beq $c0 $c0 end
-	addi $t2 $c0 1
+init:
+	addi $t0 $c0 3
+	addi $c2 $c0 512
+readchar:
+	lw $c1 1[0]
+	beq $c1 $c0 readchar
+	sw $c2[0] $c1
+	addi $c2 $c2 1
+	beq $c1 $t0 end
+	beq $c0 $c0 readchar
 end:
-	addi $t3 $c0 2
+	beq $c0 $c0 255

@@ -21,6 +21,7 @@
 
 
 module registerfile(
+	input clk,
 	input WE3,
 
 	input [9:0] a1,
@@ -42,7 +43,7 @@ module registerfile(
 		end
 	end
 
-	always @(*)
+	always @(posedge clk)
 		if (WE3 && a3) //&& a3 prevents writing if a3 is 0, so register 0 cannot be written to.
 			data[a3] <= wd3;
 	
