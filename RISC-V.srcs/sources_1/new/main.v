@@ -22,7 +22,8 @@
 
 module main(
 	input clk,
-	input reset
+	input reset,
+	input [63:0] kbin
      );
 
 
@@ -70,15 +71,6 @@ module main(
 	
 	assign Immediate = IMMSrcControl ? ImmediateSmall : ImmediateBig;
 
-	
-	/*always begin 
-		if (IMMSrcControl) begin
-			Immediate <=  { {33{Instruction[63]}}, Instruction[62:32] };
-		end else begin
-			Immediate <=  { {43{Instruction[63]}}, Instruction[62:42] };
-		end
-	end*/
-
 	//ALU Sources
 	wire [63:0] ALUSrcA, ALUSrcB;
 	mux2 ALUSrcAMux(RegRead1, PC, ALUSrcAControl, ALUSrcA);
@@ -98,7 +90,7 @@ module main(
 	
 	dmem dmem1(clk,
 		ALUOut, MemWriteControl, RegRead2, MemRead, 
-		empty, empty2, empty3, empty4, 
+		1, 1, kbin, empty4, 
 		empty5, empty6);
 
 	//Writeback
