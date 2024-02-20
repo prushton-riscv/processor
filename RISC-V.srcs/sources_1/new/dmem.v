@@ -16,6 +16,14 @@ module dmem(
     );
 
 
+	integer i; //initialize it to 0 so there arent a bunch of X everywhere (scary twitter)
+	initial begin
+		for (i = 0; i < 1024; i = i + 1) begin
+			data[i] <= 64'b0;
+		end
+	end
+
+	
 	reg [63:0] data [1023:0];   
 
 	always @(posedge clk) begin

@@ -72,20 +72,19 @@ module control(
 		12'h10B: control <= 16'b0000_1010_0001_0100; //lshifti
 		12'h10C: control <= 16'b0000_1010_0001_0110; //rshifti
 		//D E F are reserved to be used soon(tm)
-		
-		//jump
-		12'h120: control <= 16'b0001_0000_0000_0000; //jtl
-		12'h121: control <= 16'b0001_0000_0000_1100; //beq
-		12'h122: control <= 16'b0001_0000_0000_1000; //blt
-		12'h123: control <= 16'b0001_0000_0000_1010; //bgt
-		
 
 		//S TYPE
 		12'h200: control <= 16'b0000_0100_0000_0110; //sw
 		12'h201: control <= 16'b1000_0000_0000_0110; //sImem
 		
 		//L TYPE
-		12'h300: control <= 16'b0010_1000_0000_0110; //lw
+		12'h300: control <= 16'b0110_1010_0000_0110; //lw
+
+		//jump
+		12'h420: control <= 16'b0101_0000_0000_0000; //jtl
+		12'h421: control <= 16'b0101_0000_0000_1100; //beq
+		12'h422: control <= 16'b0101_0000_0000_1000; //blt
+		12'h423: control <= 16'b0101_0000_0000_1010; //bgt
 	endcase
     end
 
