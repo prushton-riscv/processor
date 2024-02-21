@@ -74,7 +74,7 @@ module control(
 		//D E F are reserved to be used soon(tm)
 
 		//S TYPE
-		12'h200: control <= 16'b0000_0100_0000_0110; //sw
+		12'h200: control <= 16'b0000_0110_0000_0110; //sw
 		12'h201: control <= 16'b1000_0000_0000_0110; //sImem
 		
 		//L TYPE
