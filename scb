@@ -1,0 +1,1 @@
+{"compiler":"iverilog","header_dir":"../","outfile":"main.o","start_time":0,"files":["testMain.sv","main.v","alu.v","control.v","dmem.v","imem.sv","mux.v","registerfile.v"]}
