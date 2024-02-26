@@ -23,7 +23,9 @@
 module main(
 	input clk,
 	input reset,
-	input [63:0] kbin
+	input [63:0] kbin,
+	input [63:0] wordAddress,
+	output [63:0] readWord
      );
 
 
@@ -91,7 +93,7 @@ module main(
 	dmem dmem1(clk,
 		ALUOut, MemWriteControl, RegRead2, MemRead, 
 		(64'b0 | 1'b1), 1'b1, kbin, empty4, 
-		empty5, empty6);
+		wordAddress, readWord);
 
 	//Writeback
 	mux2 wdsourcemux(ALUOut, MemRead, WDSrcControl, WriteDataSource);

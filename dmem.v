@@ -20,6 +20,7 @@ module dmem(
 	initial begin
 		for (i = 0; i < 1024; i = i + 1) begin
 			data[i] <= 64'b0;
+	//		$dumpvars(0, data[i]);
 		end
 	end
 
